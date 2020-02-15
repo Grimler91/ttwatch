@@ -1201,26 +1201,26 @@ void do_initial_setup(TTWATCH *watch)
         0xEC, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
         0x00, 0x00, 0x00, 0x00, 0x02, 0xF0 };
 
-    ttwatch_create_race(watch, TTWATCH_Running,   0, "3MI 25M",       4828.0f,  1500,  6, FILE_0x00710000);
-    ttwatch_create_race(watch, TTWATCH_Running,   1, "5KM 26M",       5000.0f,  1560,  8, FILE_0x00710001);
-    ttwatch_create_race(watch, TTWATCH_Running,   2, "6MI 50M",       9656.1f,  3000, 12, FILE_0x00710002);
-    ttwatch_create_race(watch, TTWATCH_Running,   3, "10KM 50M",     10000.0f,  3000, 12, FILE_0x00710003);
-    ttwatch_create_race(watch, TTWATCH_Running,   4, "13.1MI 2HR",   21097.5f,  7200, 30, FILE_0x00710004);
-    ttwatch_create_race(watch, TTWATCH_Cycling,   0, "10MI 35M",     16093.4f,  2100, 10, FILE_0x00710100);
-    ttwatch_create_race(watch, TTWATCH_Cycling,   1, "30KM 60M",     30000.0f,  3600, 16, FILE_0x00710101);
-    ttwatch_create_race(watch, TTWATCH_Cycling,   2, "25MI 1HR",     40233.6f,  3600, 16, FILE_0x00710102);
-    ttwatch_create_race(watch, TTWATCH_Cycling,   3, "60KM 135M",    60000.0f,  8100, 36, FILE_0x00710103);
-    ttwatch_create_race(watch, TTWATCH_Cycling,   4, "100KM 3.5HR", 100000.0f, 12600, 50, FILE_0x00710104);
-    ttwatch_create_race(watch, TTWATCH_Treadmill, 0, "3MI 25M",       4828.0f,  1500,  6, FILE_0x00710700);
-    ttwatch_create_race(watch, TTWATCH_Treadmill, 1, "5KM 26M",       5000.0f,  1560,  8, FILE_0x00710701);
-    ttwatch_create_race(watch, TTWATCH_Treadmill, 2, "6MI 50M",       9656.1f,  3000, 12, FILE_0x00710702);
-    ttwatch_create_race(watch, TTWATCH_Treadmill, 3, "10KM 50M",     10000.0f,  3000, 12, FILE_0x00710703);
-    ttwatch_create_race(watch, TTWATCH_Treadmill, 4, "13.1MI 2HR",   21097.5f,  7200, 30, FILE_0x00710704);
-    ttwatch_create_race(watch, TTWATCH_Freestyle, 0, "3KM 10M",       3000.0f,   600,  3, FILE_0x00710800);
-    ttwatch_create_race(watch, TTWATCH_Freestyle, 1, "5MI 1HR",       8046.7f,  3600, 16, FILE_0x00710801);
-    ttwatch_create_race(watch, TTWATCH_Freestyle, 2, "10KM 2.5HR",   10000.0f,  9000, 36, FILE_0x00710802);
-    ttwatch_create_race(watch, TTWATCH_Freestyle, 3, "25KM 1HR",     25000.0f,  3600, 16, FILE_0x00710803);
-    ttwatch_create_race(watch, TTWATCH_Freestyle, 4, "30MI 2HR",     48280.3f,  7200, 30, FILE_0x00710804);
+    ttwatch_create_race(watch, TTWATCH_Running,   0, "3MI 25M",     (uint32_t)  4828.0f,  1500,  6, FILE_0x00710000);
+    ttwatch_create_race(watch, TTWATCH_Running,   1, "5KM 26M",     (uint32_t)  5000.0f,  1560,  8, FILE_0x00710001);
+    ttwatch_create_race(watch, TTWATCH_Running,   2, "6MI 50M",     (uint32_t)  9656.1f,  3000, 12, FILE_0x00710002);
+    ttwatch_create_race(watch, TTWATCH_Running,   3, "10KM 50M",    (uint32_t) 10000.0f,  3000, 12, FILE_0x00710003);
+    ttwatch_create_race(watch, TTWATCH_Running,   4, "13.1MI 2HR",  (uint32_t) 21097.5f,  7200, 30, FILE_0x00710004);
+    ttwatch_create_race(watch, TTWATCH_Cycling,   0, "10MI 35M",    (uint32_t) 16093.4f,  2100, 10, FILE_0x00710100);
+    ttwatch_create_race(watch, TTWATCH_Cycling,   1, "30KM 60M",    (uint32_t) 30000.0f,  3600, 16, FILE_0x00710101);
+    ttwatch_create_race(watch, TTWATCH_Cycling,   2, "25MI 1HR",    (uint32_t) 40233.6f,  3600, 16, FILE_0x00710102);
+    ttwatch_create_race(watch, TTWATCH_Cycling,   3, "60KM 135M",   (uint32_t) 60000.0f,  8100, 36, FILE_0x00710103);
+    ttwatch_create_race(watch, TTWATCH_Cycling,   4, "100KM 3.5HR", (uint32_t)100000.0f, 12600, 50, FILE_0x00710104);
+    ttwatch_create_race(watch, TTWATCH_Treadmill, 0, "3MI 25M",     (uint32_t)  4828.0f,  1500,  6, FILE_0x00710700);
+    ttwatch_create_race(watch, TTWATCH_Treadmill, 1, "5KM 26M",     (uint32_t)  5000.0f,  1560,  8, FILE_0x00710701);
+    ttwatch_create_race(watch, TTWATCH_Treadmill, 2, "6MI 50M",     (uint32_t)  9656.1f,  3000, 12, FILE_0x00710702);
+    ttwatch_create_race(watch, TTWATCH_Treadmill, 3, "10KM 50M",    (uint32_t) 10000.0f,  3000, 12, FILE_0x00710703);
+    ttwatch_create_race(watch, TTWATCH_Treadmill, 4, "13.1MI 2HR",  (uint32_t) 21097.5f,  7200, 30, FILE_0x00710704);
+    ttwatch_create_race(watch, TTWATCH_Freestyle, 0, "3KM 10M",     (uint32_t)  3000.0f,   600,  3, FILE_0x00710800);
+    ttwatch_create_race(watch, TTWATCH_Freestyle, 1, "5MI 1HR",     (uint32_t)  8046.7f,  3600, 16, FILE_0x00710801);
+    ttwatch_create_race(watch, TTWATCH_Freestyle, 2, "10KM 2.5HR",  (uint32_t) 10000.0f,  9000, 36, FILE_0x00710802);
+    ttwatch_create_race(watch, TTWATCH_Freestyle, 3, "25KM 1HR",    (uint32_t) 25000.0f,  3600, 16, FILE_0x00710803);
+    ttwatch_create_race(watch, TTWATCH_Freestyle, 4, "30MI 2HR",    (uint32_t) 48280.3f,  7200, 30, FILE_0x00710804);
 
     ttwatch_create_default_preferences_file(watch);
 }
