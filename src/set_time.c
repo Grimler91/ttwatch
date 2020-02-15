@@ -26,7 +26,7 @@ void do_set_time(TTWATCH *watch)
     /* if the UTC time of the watch is severely skewed, adjust the
        offset so that the local time still shows up correctly, and
        warn the user */
-    if (abs(watch_utc_time - utc_time) > 600)
+    if (labs(watch_utc_time - utc_time) > 600)
     {
         write_log(1, "Watch has wrong UTC time. Use GPS to correct this.\n");
         offset += utc_time - watch_utc_time;
