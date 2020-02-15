@@ -103,10 +103,10 @@ public:
     Watch();
     ~Watch();
 
-    static void enumerateDevices(WatchEnumerator enumerator, void *data);
+    static void enumerateDevices(WatchEnumerator enumerator, void *data, int *fd);
 
-    bool open();
-    bool open(std::string serial_or_name);
+    bool open(int *fd);
+    bool open(std::string serial_or_name, int *fd);
     void close();
 
     int lastError() const;

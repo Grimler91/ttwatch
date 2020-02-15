@@ -272,14 +272,14 @@ typedef void (*TTWATCH_HISTORY_ENUMERATOR)(TTWATCH_ACTIVITY activity, int index,
 * Calls the callback function for each watch found attached to the system.    *
 * 'data' is passed directly to the callback function                          *
 ******************************************************************************/
-void ttwatch_enumerate_devices(TTWATCH_DEVICE_ENUMERATOR enumerator, void *data);
+void ttwatch_enumerate_devices(TTWATCH_DEVICE_ENUMERATOR enumerator, void *data, int *fd);
 
 /******************************************************************************
 * Opens a watch that matches the supplied serial number or name. If           *
 * serial_or_name is null, matches the first watch found. If the function is   *
 * successful, *watch contains a pointer to a watch structure.                 *
 ******************************************************************************/
-int ttwatch_open(const char *serial_or_name, TTWATCH **watch);
+int ttwatch_open(const char *serial_or_name, TTWATCH **watch, int *fd);
 
 /******************************************************************************
 * Opens a watch specified by the given libusb device. The watch must still    *
@@ -287,7 +287,7 @@ int ttwatch_open(const char *serial_or_name, TTWATCH **watch);
 * is opened regardless of its serial number or name. Note that the watch may  *
 * still not be opened if an error occurs.                                     *
 ******************************************************************************/
-int ttwatch_open_device(libusb_device *device, const char *serial_or_name, TTWATCH **watch);
+int ttwatch_open_device(const char *serial_or_name, TTWATCH **watch, int *fd);
 
 /******************************************************************************
 * Closes the watch and frees memory associated with the watch structure.      *

@@ -304,53 +304,47 @@ extern "C"
 
 //------------------------------------------------------------------------------
 // device functions
-void ttwatch_enumerate_devices(TTWATCH_DEVICE_ENUMERATOR enumerator, void *data)
+void ttwatch_enumerate_devices(TTWATCH_DEVICE_ENUMERATOR enumerator, void *data, int *fd)
 {
-    libusb_device **list = 0;
-
-    ssize_t count = libusb_get_device_list(NULL, &list);
-    for (ssize_t i = 0; i < count; ++i)
+    TTWATCH *watch;
+    if (ttwatch_open_device(0, &watch, fd) == TTWATCH_NoError)
     {
-        TTWATCH *watch;
-        if (ttwatch_open_device(list[i], 0, &watch) == TTWATCH_NoError)
-        {
-            if (enumerator(watch, data))
-                ttwatch_close(watch);
-            else
-                break;
+        if (enumerator(watch, data))
+	{
+	    ttwatch_close(watch);
         }
     }
-
-    libusb_free_device_list(list, 1);
 }
 
 //------------------------------------------------------------------------------
-int ttwatch_open(const char *serial_or_name, TTWATCH **watch)
+int ttwatch_open(const char *serial_or_name, TTWATCH **watch, int *fd)
 {
-    libusb_device **list = 0;
-
-    ssize_t count = libusb_get_device_list(NULL, &list);
-    for (ssize_t i = 0; i < count; ++i)
-    {
-        if (ttwatch_open_device(list[i], serial_or_name, watch) == TTWATCH_NoError)
-            break;
-    }
-
-    libusb_free_device_list(list, 1);
-    return *watch ? TTWATCH_NoError : TTWATCH_NoMatchingWatch;
+    if (ttwatch_open_device(serial_or_name, watch, fd) == TTWATCH_NoError)
+      return TTWATCH_NoError;
+    return TTWATCH_NoMatchingWatch;
 }
 
 //------------------------------------------------------------------------------
-int ttwatch_open_device(libusb_device *device, const char *serial_or_name, TTWATCH **watch)
+int ttwatch_open_device(const char *serial_or_name, TTWATCH **watch, int *fd)
 {
     struct libusb_device_descriptor desc;
-    int result;
-    libusb_device_handle *handle;
+    int result, ret;
+    libusb_device_handle *handle = NULL;
+    libusb_device *device;
     char serial[64];
     char name[64];
     int count;
     int attempts = 0;
 
+    ret = libusb_wrap_sys_device(NULL, (intptr_t)*fd, &handle);
+    if (ret < 0) {
+        printf("libusb_wrap_sys_device failed: %d\n", ret);
+	return TTWATCH_UnableToOpenDevice;
+    } else if (handle == NULL) {
+        printf("libusb_wrap_sys_device returned invalid handle\n");
+	return TTWATCH_UnableToOpenDevice;
+    }
+    device = libusb_get_device(handle);
     // get the device descriptor
     libusb_get_device_descriptor(device, &desc);
 
@@ -362,13 +356,6 @@ int ttwatch_open_device(libusb_device *device, const char *serial_or_name, TTWAT
     {
         *watch = 0;
         return TTWATCH_NotAWatch;
-    }
-
-    // open the device so we can read the serial number
-    if (libusb_open(device, &handle))
-    {
-        *watch = 0;
-        return TTWATCH_UnableToOpenDevice;
     }
 
     *watch = (TTWATCH*)calloc(1, sizeof(TTWATCH));

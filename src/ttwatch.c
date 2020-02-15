@@ -1255,6 +1255,7 @@ void help(char *argv[])
     write_log(0, "                               watch. Does NOT save the data before deleting it\n");
     write_log(0, "      --create-continuous-race [RACE] Create a continuously monitored race and\n");
     write_log(0, "                               uploads it to the watch (see below)\n");
+    write_log(0, "      --usb-fd=fd            Pass a valid file descriptor to ttwatch\n");
 #ifdef UNSAFE
     write_log(0, "      --delete               Deletes a single file from the device\n");
 #endif
@@ -1366,6 +1367,7 @@ void help(char *argv[])
     write_log(0, "surrounded in quotes, or the space can be escaped with a '\\'.\n");
     write_log(0, "\n");
     write_log(0, "--create-continuous-race creates a different type of race that shows\n");
+    write_log(0, "--usb-fd usb file descriptor for libusb\n");
     write_log(0, "progress on the watch every second. It appears as a recent activity race\n");
     write_log(0, "rather than a MySports race. It is listed under the date and time that\n");
     write_log(0, "the race is created. It has a different specification string to the\n");
@@ -1452,6 +1454,7 @@ int main(int argc, char *argv[])
         { "update-race",    required_argument, 0, 5   },
         { "setting",        required_argument, 0, 6   },
         { "create-continuous-race", required_argument, 0, 9 },
+	{ "usb-fd",          required_argument, 0,  10 },
 #ifdef UNSAFE
         { "list",           no_argument,       0, 'l' },
         { "read",           required_argument, 0, 'r' },
@@ -1508,6 +1511,12 @@ int main(int argc, char *argv[])
                 free(options->race);
             options->race = strdup(optarg);
             break;
+	case 10:    /* usb file descriptor */
+            if (optarg)
+            {
+                options->usb_fd = atoi(optarg);
+            }
+	    break;
 
         case 'a':   /* auto mode */
             options->update_firmware = 1;
@@ -1635,11 +1644,11 @@ int main(int argc, char *argv[])
 
     if (options->list_devices)
     {
-        ttwatch_enumerate_devices(list_devices_callback, 0);
+        ttwatch_enumerate_devices(list_devices_callback, 0, &options->usb_fd);
         return 0;
     }
 
-    if (ttwatch_open(options->select_device ? options->device : 0, &watch) != TTWATCH_NoError)
+    if (ttwatch_open(options->select_device ? options->device : 0, &watch, &options->usb_fd) != TTWATCH_NoError)
     {
         write_log(1, "Unable to open watch\n");
         free_options(options);

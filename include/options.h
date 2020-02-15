@@ -42,6 +42,7 @@ typedef struct
     int list_races;
     int update_race;
     int create_continuous_race;
+    int usb_fd;
     char *race;
     int list_history;
     int delete_history;

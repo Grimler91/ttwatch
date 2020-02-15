@@ -381,7 +381,7 @@ int main(int argc, char *argv[])
 
             write_log(0, "Watch connected...\n");
 
-            int ret = ttwatch_open_device(device, options->select_device ? options->device : 0, &watch);
+            int ret = ttwatch_open_device(options->select_device ? options->device : 0, &watch, &options->usb_fd);
             if (ret == TTWATCH_NoError)
             {
                 daemon_watch_operations(watch, options);

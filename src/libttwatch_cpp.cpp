@@ -208,22 +208,22 @@ Watch::~Watch()
 }
 
 //------------------------------------------------------------------------------
-void Watch::enumerateDevices(WatchEnumerator enumerator, void *data)
+void Watch::enumerateDevices(WatchEnumerator enumerator, void *data, int *fd)
 {
     EnumerateDevicesData cbdata = { enumerator, data };
-    ttwatch_enumerate_devices(enumerateDevicesCallback, &cbdata);
+    ttwatch_enumerate_devices(enumerateDevicesCallback, &cbdata, fd);
 }
 
 //------------------------------------------------------------------------------
-bool Watch::open()
+bool Watch::open(int *fd)
 {
-    RET_LOG_ERROR(this, ttwatch_open(0, &m_watch));
+    RET_LOG_ERROR(this, ttwatch_open(0, &m_watch, fd));
 }
 
 //------------------------------------------------------------------------------
-bool Watch::open(std::string serial_or_name)
+bool Watch::open(std::string serial_or_name, int *fd)
 {
-    RET_LOG_ERROR(this, ttwatch_open(serial_or_name.c_str(), &m_watch));
+    RET_LOG_ERROR(this, ttwatch_open(serial_or_name.c_str(), &m_watch, fd));
 }
 
 //------------------------------------------------------------------------------
