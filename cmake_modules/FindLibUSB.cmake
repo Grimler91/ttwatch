@@ -51,8 +51,8 @@ else (LIBUSB_1_LIBRARIES AND LIBUSB_1_INCLUDE_DIRS)
     NAMES
 	libusb.h
     PATHS
-      /usr/include
-      /usr/local/include
+      /data/data/com.termux/files/usr/local/include
+      /data/data/com.termux/files/usr/include
       /opt/local/include
       /sw/include
 	PATH_SUFFIXES
@@ -63,8 +63,8 @@ else (LIBUSB_1_LIBRARIES AND LIBUSB_1_INCLUDE_DIRS)
     NAMES
       usb-1.0 usb
     PATHS
-      /usr/lib
-      /usr/local/lib
+      /data/data/com.termux/files/usr/local/lib
+      /data/data/com.termux/files/usr/lib
       /opt/local/lib
       /sw/lib
   )
