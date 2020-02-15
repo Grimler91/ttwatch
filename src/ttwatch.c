@@ -1736,7 +1736,7 @@ int main(int argc, char *argv[])
     if (options->get_activities)
     {
         char name[32];
-        if (!ttwatch_get_watch_name(watch, name, sizeof(name)) == TTWATCH_NoError)
+        if (ttwatch_get_watch_name(watch, name, sizeof(name)) != TTWATCH_NoError)
         {
             char *filename = malloc(strlen(options->activity_store) + 1 + strlen(name) + 1 + 12 + 1);
             sprintf(filename, "%s/%s/ttwatch.conf", options->activity_store, name);
@@ -1749,7 +1749,7 @@ int main(int argc, char *argv[])
     if (options->get_summaries)
     {
         char name[32];
-        if (!ttwatch_get_watch_name(watch, name, sizeof(name)) == TTWATCH_NoError)
+        if (ttwatch_get_watch_name(watch, name, sizeof(name)) != TTWATCH_NoError)
         {
             char *filename = malloc(strlen(options->activity_store) + 1 + strlen(name) + 1 + 12 + 1);
             sprintf(filename, "%s/%s/ttwatch.conf", options->activity_store, name);
